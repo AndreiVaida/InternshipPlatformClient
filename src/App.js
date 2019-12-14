@@ -7,9 +7,11 @@ export const SERVER_URL = 'http://localhost:8080';
 
 function App() {
   return (
-    <Router history={history}>
-      <Routes />
-    </Router>
+    <div className={"background"}>
+      <Router history={history}>
+        <Routes />
+      </Router>
+    </div>
   );
 }
 

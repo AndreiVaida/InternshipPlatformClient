@@ -29,10 +29,14 @@
 }
 
 .background {
-  background-image: url(/internship-image.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: rgb(241, 219, 255);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.smallWidth {
+  width: 500px !important;
 }
 
 @keyframes App-logo-spin {
