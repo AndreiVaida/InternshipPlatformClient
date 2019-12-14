@@ -28,15 +28,18 @@
   color: #61dafb;
 }
 
-.background {
-  background-color: rgb(241, 219, 255);
-  height: 100%;
-  width: 100%;
-  position: absolute;
+body {
+  background-color: rgb(250, 248, 240) !important;
+  color: rgb(79, 64, 5) !important;
 }
 
 .smallWidth {
   width: 500px !important;
+}
+
+Button {
+  background-color: rgb(79, 64, 5) !important;
+  border: 2px solid rgb(79, 64, 5) !important;
 }
 
 @keyframes App-logo-spin {

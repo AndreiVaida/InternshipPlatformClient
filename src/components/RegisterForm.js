@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import "../App.css"
 import {SERVER_URL} from "../App";
 import history from "../navigation/History";
+import axios from 'axios';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -26,19 +27,25 @@ class RegisterForm extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const request = new XMLHttpRequest();
-    request.addEventListener('load', () => {
-      const hello = request.readyState;
-      alert(hello);
-      history.push("/login");
-    });
-    request.addEventListener('error', () => {
-      const hello = "Error: " + JSON.stringify(request.readyState);
-      alert(hello);
-    });
+    const body = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name
+    };
 
-    request.open('POST', SERVER_URL + "/user");
-    request.send();
+    axios.post(SERVER_URL + "/user", body)
+      .then(response => {
+        if (response.ok) {
+          history.push("/login");
+        }
+        else {
+          alert("ȘTERGE ACEST IF FIINDCĂ NU AR TREBUI SĂ AJUNGI AICI");
+        }
+      })
+      .catch(error => {
+        alert(error);
+        return Promise.reject(error);
+      });
   };
 
   render() {
@@ -47,16 +54,16 @@ class RegisterForm extends Component {
         <p className={"display-4 mb-5 text-center"}> Create an account </p>
         <Form onSubmit={this.onSubmit}>
           <Form.Group>
-            <Form.Label> Enter your e-mail </Form.Label>
-            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"e-mail"} onChange={this.handleInputChange} />
+            <Form.Label> E-mail </Form.Label>
+            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"write your e-mail"} onChange={this.handleInputChange} />
           </Form.Group>
           <Form.Group>
-            <Form.Label> Enter a password </Form.Label>
-            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"password"} onChange={this.handleInputChange} />
+            <Form.Label> Password </Form.Label>
+            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"pick a strong password"} onChange={this.handleInputChange} />
           </Form.Group>
           <Form.Group>
-            <Form.Label> Enter your name </Form.Label>
-            <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"First Name and Last Name"} onChange={this.handleInputChange} />
+            <Form.Label> Name </Form.Label>
+            <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"enter your First Name and Last Name"} onChange={this.handleInputChange} />
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Create your account </Button></div>
         </Form>
@@ -64,6 +71,5 @@ class RegisterForm extends Component {
     );
   }
 }
-
 
 export default RegisterForm;

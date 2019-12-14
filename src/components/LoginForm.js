@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import "../App.css"
 import {SERVER_URL} from "../App";
 import history from "../navigation/History";
+import axios from 'axios';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -25,19 +26,25 @@ class LoginForm extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const request = new XMLHttpRequest();
-    request.addEventListener('load', () => {
-      const hello = request.readyState;
-      alert(hello);
-      history.push("/home");
-    });
-    request.addEventListener('error', () => {
-      const hello = "Error: " + JSON.stringify(request.readyState);
-      alert(hello);
-    });
+    const body = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name
+    };
 
-    request.open('POST', SERVER_URL + "/login");
-    request.send();
+    axios.post(SERVER_URL + "/login", body)
+      .then(response => {
+        if (response.ok) {
+          history.push("/home");
+        }
+        else {
+          alert("ȘTERGE ACEST IF FIINDCĂ NU AR TREBUI SĂ AJUNGI AICI");
+        }
+      })
+      .catch(error => {
+        alert(error);
+        return Promise.reject(error);
+      });
   };
 
   render() {
@@ -47,11 +54,11 @@ class LoginForm extends Component {
         <Form onSubmit={this.onSubmit}>
           <Form.Group>
             <Form.Label> Enter your e-mail </Form.Label>
-            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"e-mail"} onChange={this.handleInputChange} />
+            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"E-mail"} onChange={this.handleInputChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label> Enter your password </Form.Label>
-            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"password"} onChange={this.handleInputChange} />
+            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"Password"} onChange={this.handleInputChange} />
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Login </Button></div>
         </Form>
