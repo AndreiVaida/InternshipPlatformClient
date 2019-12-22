@@ -1,3 +1,8 @@
+:root {
+  --appTextColor: rgb(79, 64, 5);
+  --appBackgroundColor: rgb(79, 64, 5);
+}
+
 .App {
   text-align: center;
 }
@@ -30,7 +35,7 @@
 
 body {
   background-color: rgb(250, 248, 240) !important;
-  color: rgb(79, 64, 5) !important;
+  color: var(--appTextColor) !important;
 }
 
 .smallWidth {
@@ -38,8 +43,12 @@ body {
 }
 
 Button {
-  background-color: rgb(79, 64, 5) !important;
-  border: 2px solid rgb(79, 64, 5) !important;
+  background-color: var(--appBackgroundColor) !important;
+  border: 2px solid var(--appBackgroundColor) !important;
+}
+
+.Tabs > a {
+  color: var(--appTextColor);
 }
 
 @keyframes App-logo-spin {

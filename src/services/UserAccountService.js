@@ -32,8 +32,9 @@ export class UserAccountService {
     localStorage.removeItem("authorizationToken");
   };
 
-  static createAccount(email, password, name) {
+  static createAccount(userType, email, password, name) {
     const body = {
+      userType: userType,
       email: email,
       password: password,
       name: name
