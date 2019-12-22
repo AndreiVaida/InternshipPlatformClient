@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import "../App.css"
-import {SERVER_URL} from "../App";
 import history from "../navigation/History";
-import axios from 'axios';
+import { UserAccountService } from "../services/UserAccountService";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -26,21 +25,9 @@ class RegisterForm extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-
-    const body = {
-      email: this.state.email,
-      password: this.state.password,
-      name: this.state.name
-    };
-
-    axios.post(SERVER_URL + "/user", body)
-      .then(response => {
-        if (response.ok) {
-          history.push("/login");
-        }
-        else {
-          alert("ȘTERGE ACEST IF FIINDCĂ NU AR TREBUI SĂ AJUNGI AICI");
-        }
+    UserAccountService.createAccount(this.state.email, this.state.password, this.state.name)
+      .then(() => {
+        history.push("/login");
       })
       .catch(error => {
         alert(error);
@@ -67,6 +54,9 @@ class RegisterForm extends Component {
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Create your account </Button></div>
         </Form>
+        <div className={"text-center mt-3"}>
+          <a href={"/login"}> Already have an account? Login here! </a>
+        </div>
       </div>
     );
   }
