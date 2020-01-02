@@ -8,7 +8,7 @@ import LoginForm from "../components/user/LoginForm";
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={RegisterForm} />
+      <Route path="/" exact component={LoginForm} />
       <Route path="/home" component={ReactHome} />
       <Route path="/hello" component={Hello} />
       <Route path="/register" component={RegisterForm} />

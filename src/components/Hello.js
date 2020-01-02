@@ -16,7 +16,7 @@ class Hello extends Component {
   sayHello() {
     axios.get(SERVER_URL + "/user")
       .then(response => {
-        this.setState({hello: response.toString()});
+        this.setState({hello: response.data});
       });
   }
 

@@ -27,7 +27,7 @@ class LoginForm extends Component {
 
     UserAccountService.login(this.state.email, this.state.password, this.state.name)
       .then(() => {
-        history.push("/home");
+        history.push("/hello");
       })
       .catch(error => {
         alert(error);
@@ -42,11 +42,11 @@ class LoginForm extends Component {
         <Form onSubmit={this.onSubmit}>
           <Form.Group>
             <Form.Label> Enter your e-mail </Form.Label>
-            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"E-mail"} onChange={this.handleInputChange} />
+            <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"E-mail"} required="required" onChange={this.handleInputChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label> Enter your password </Form.Label>
-            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"Password"} onChange={this.handleInputChange} />
+            <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"Password"} required="required" onChange={this.handleInputChange} />
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Login </Button></div>
         </Form>

@@ -69,6 +69,7 @@ class RegisterForm extends Component {
       name: this.state.name,
     };
 
+    // eslint-disable-next-line default-case
     switch (userType) {
       case UserType.STUDENT: {
         account.educations = this.state.educations;
