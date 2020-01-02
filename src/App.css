@@ -1,6 +1,7 @@
 :root {
   --appTextColor: rgb(79, 64, 5);
-  --appBackgroundColor: rgb(79, 64, 5);
+  --appItemColor: rgb(79, 64, 5);
+  --appBackgroundColor: rgb(250, 248, 240);
 }
 
 .App {
@@ -34,7 +35,7 @@
 }
 
 body {
-  background-color: rgb(250, 248, 240) !important;
+  background-color: var(--appBackgroundColor) !important;
   color: var(--appTextColor) !important;
 }
 
@@ -43,8 +44,8 @@ body {
 }
 
 Button {
-  background-color: var(--appBackgroundColor) !important;
-  border: 2px solid var(--appBackgroundColor) !important;
+  background-color: var(--appItemColor) !important;
+  border: 2px solid var(--appItemColor) !important;
 }
 
 .Tabs > a {
@@ -63,8 +64,12 @@ Button {
   cursor: pointer;
 }
 
-.darkenHover:hover {
+.darkenHover_50:hover {
   filter: brightness(50%);
+}
+
+.darkenHover_80:hover {
+  filter: brightness(80%);
 }
 
 @keyframes App-logo-spin {

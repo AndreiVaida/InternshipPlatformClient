@@ -1,4 +1,4 @@
 export const UserType = {
-  STUDENT: 'student',
-  COMPANY: 'company'
+  STUDENT: 'Student',
+  COMPANY: 'Company'
 };

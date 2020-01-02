@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ReactHome from "../components/ReactHome";
 import Hello from "../components/Hello";
-import RegisterForm from "../components/user/RegisterForm";
-import LoginForm from "../components/user/LoginForm";
+import RegisterForm from "../components/userAccount/RegisterForm";
+import LoginForm from "../components/userAccount/LoginForm";
 
 export default function Routes() {
   return (

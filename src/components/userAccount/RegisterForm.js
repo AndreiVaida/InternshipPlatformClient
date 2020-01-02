@@ -69,9 +69,11 @@ class RegisterForm extends Component {
       name: this.state.name,
     };
 
+    let userType_url;
     // eslint-disable-next-line default-case
     switch (userType) {
       case UserType.STUDENT: {
+        userType_url = "student";
         account.educations = this.state.educations;
         for (const education of account.educations) {
           if (!education.degree) {
@@ -79,10 +81,15 @@ class RegisterForm extends Component {
             return;
           }
         }
+        break;
+      }
+      case UserType.COMPANY: {
+        userType_url = "company";
+        break;
       }
     }
 
-    UserAccountService.createAccount(userType, account)
+    UserAccountService.createAccount(userType_url, account)
       .then(() => {
         history.push("/login");
       })
@@ -147,15 +154,15 @@ class RegisterForm extends Component {
             <Form onSubmit={(event) => this.onSubmit(event, UserType.COMPANY)}>
               <Form.Group>
                 <Form.Label> E-mail </Form.Label>
-                <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"write company e-mail"} onChange={this.handleInputChange}/>
+                <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"write company e-mail"} required="required" onChange={this.handleInputChange}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label> Password </Form.Label>
-                <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"pick a strong password"} onChange={this.handleInputChange}/>
+                <Form.Control type={"password"} name={"password"} value={this.state.password} placeholder={"pick a strong password"} required="required" onChange={this.handleInputChange}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label> Name </Form.Label>
-                <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"enter company name"} onChange={this.handleInputChange}/>
+                <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"enter company name"} required="required" onChange={this.handleInputChange}/>
               </Form.Group>
               <div className={"text-center"}><Button type={"submit"}> Create company account </Button></div>
             </Form>

@@ -1,17 +1,34 @@
 import axios from "axios";
 import { SERVER_URL } from "../App";
 import { UserType } from "../domain/UserType";
+import EventEmitter from "../utils/EventEmitter";
+import { EventType } from "../utils/EventType";
+
+const AUTHORIZATION_TOKEN = "authorizationToken";
+const USER = "user";
 
 export class UserAccountService {
-
+  
   static initializeAuthenticatedRequests() {
     axios.interceptors.request.use(config => {
-      config.headers.Authorization = localStorage.getItem("authorizationToken");
+      config.headers.Authorization = localStorage.getItem(AUTHORIZATION_TOKEN);
       return config;
     }, error => {
       // handle the error
       return Promise.reject(error);
     });
+  }
+
+  static triggerUserChangedEvent() {
+    EventEmitter.dispatch(EventType.UserAccountChanged);
+  }
+
+  static getLoggedUser() {
+    return JSON.parse(localStorage.getItem(USER));
+  }
+
+  static isAuthenticated() {
+    return localStorage.getItem(USER) != null && localStorage.getItem(AUTHORIZATION_TOKEN) != null;
   }
 
   static login(email, password, name) {
@@ -23,26 +40,21 @@ export class UserAccountService {
 
     return axios.post(SERVER_URL + "/login", body)
       .then(response => {
-        UserAccountService.saveUserAccountInLocalStorage(response.data.user, response.data.Authorization);
-        UserAccountService.sendUserUpdateNotification();
+        UserAccountService.saveUserAccountInLocalStorage(response.data.User, response.data.Authorization);
+        UserAccountService.triggerUserChangedEvent();
         return response;
       });
   };
 
   static saveUserAccountInLocalStorage (user, authorization) {
-    console.log("Authorization: " + authorization);
-    console.log("user: " + user);
-    localStorage.setItem("user", user);
-    localStorage.setItem("authorizationToken", authorization);
-  };
-
-  static sendUserUpdateNotification() {
-    console.log("NOTIFICĂ navigation bar-ul să actualizeze numele userului");
+    localStorage.setItem(USER, JSON.stringify(user));
+    localStorage.setItem(AUTHORIZATION_TOKEN, authorization);
   };
 
   static logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("authorizationToken");
+    localStorage.removeItem(USER);
+    localStorage.removeItem(AUTHORIZATION_TOKEN);
+    UserAccountService.triggerUserChangedEvent();
   };
 
   static createAccount(userType, account) {
