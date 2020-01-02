@@ -72,6 +72,14 @@ Button {
   filter: brightness(80%);
 }
 
+.smallIcon {
+  width: 18px;
+}
+
+.dark {
+  filter: brightness(20%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -35,7 +35,7 @@ class NavigationBar extends Component {
   render() {
     return(
       <Navbar className={"navbar"} expand="lg">
-        <Navbar.Brand href="/home" className={"darkenHover_80"}>Internships</Navbar.Brand>
+        <Navbar.Brand href="/internships" className={"darkenHover_80"}>Internships</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto"> {
             this.state.isAuthenticated && this.state.user.userType === UserType.COMPANY &&

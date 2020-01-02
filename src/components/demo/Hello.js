@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
-import { SERVER_URL } from "../App";
+import { SERVER_URL } from "../../App";
 import axios from "axios";
 
 class Hello extends Component {
