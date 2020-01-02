@@ -3,7 +3,7 @@ import logo from '../logo.svg';
 import history from "../navigation/History";
 import { Button } from "react-bootstrap";
 
-class Home extends Component {
+class ReactHome extends Component {
 
   navigateToHello() {
     history.push("/hello")
@@ -32,4 +32,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default ReactHome;

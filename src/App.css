@@ -1,3 +1,8 @@
+:root {
+  --appTextColor: rgb(79, 64, 5);
+  --appBackgroundColor: rgb(79, 64, 5);
+}
+
 .App {
   text-align: center;
 }
@@ -26,6 +31,40 @@
 
 .App-link {
   color: #61dafb;
+}
+
+body {
+  background-color: rgb(250, 248, 240) !important;
+  color: var(--appTextColor) !important;
+}
+
+.smallWidth {
+  width: 500px !important;
+}
+
+Button {
+  background-color: var(--appBackgroundColor) !important;
+  border: 2px solid var(--appBackgroundColor) !important;
+}
+
+.Tabs > a {
+  color: var(--appTextColor);
+}
+
+.lighterBackgroundHover:hover {
+  background-color: rgba(255,255,255, 0.5);
+}
+
+.greyHover:hover {
+  filter: saturate(0%) contrast(50%) brightness(150%);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.darkenHover:hover {
+  filter: brightness(50%);
 }
 
 @keyframes App-logo-spin {

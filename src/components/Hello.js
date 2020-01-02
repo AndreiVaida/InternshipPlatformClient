@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { SERVER_URL } from "../App";
+import axios from "axios";
 
 class Hello extends Component {
   constructor(props) {
@@ -13,14 +14,10 @@ class Hello extends Component {
   }
 
   sayHello() {
-    const request = new XMLHttpRequest();
-    request.addEventListener('load', () => {
-      const hello = request.response;
-      this.setState({hello: hello.toString()});
-    });
-
-    request.open('GET', SERVER_URL + "/user");
-    request.send();
+    axios.get(SERVER_URL + "/user")
+      .then(response => {
+        this.setState({hello: response.data});
+      });
   }
 
   render() {
