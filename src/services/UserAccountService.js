@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "../App";
+import { UserType } from "../domain/UserType";
 
 export class UserAccountService {
 
@@ -10,7 +11,7 @@ export class UserAccountService {
       name: name
     };
 
-    return axios.post(SERVER_URL + "/user", body)
+    return axios.post(SERVER_URL + "/login", body)
       .then(response => {
         UserAccountService.saveUserAccountInLocalStorage(response.user, response.Authorization);
         UserAccountService.sendUserUpdateNotification();
@@ -32,14 +33,15 @@ export class UserAccountService {
     localStorage.removeItem("authorizationToken");
   };
 
-  static createAccount(userType, email, password, name) {
-    const body = {
-      userType: userType,
-      email: email,
-      password: password,
-      name: name
-    };
+  static createAccount(userType, account) {
+    switch (userType) {
+      case UserType.STUDENT: {
+        for (const education of account.educations) {
+          education.degree = education.degree.value;
+        }
+      }
+    }
 
-    return axios.post(SERVER_URL + "/user", body);
+    return axios.post(SERVER_URL + "/user/" + userType, account);
   }
 }

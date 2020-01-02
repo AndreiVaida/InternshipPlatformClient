@@ -51,6 +51,22 @@ Button {
   color: var(--appTextColor);
 }
 
+.lighterBackgroundHover:hover {
+  background-color: rgba(255,255,255, 0.5);
+}
+
+.greyHover:hover {
+  filter: saturate(0%) contrast(50%) brightness(150%);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.darkenHover:hover {
+  filter: brightness(50%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
-import "../App.css"
-import history from "../navigation/History";
-import { UserAccountService } from '../services/UserAccountService'
+import "../../App.css"
+import history from "../../navigation/History";
+import { UserAccountService } from '../../services/UserAccountService'
 
 class LoginForm extends Component {
   constructor(props) {
