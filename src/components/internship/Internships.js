@@ -24,8 +24,8 @@ class Internships extends Component {
 
   componentDidMount() {
     this.loadUrlFilters();
-    this.loadFilters();
-    this.loadInternships();
+    this.loadFilters()
+      .finally(() => this.loadInternships());
   }
 
   loadUrlFilters = () => {
@@ -54,17 +54,16 @@ class Internships extends Component {
     if (!stringDate) {
       return null;
     }
-
     const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-    const date = new Date(stringDate.replace(pattern,'$3-$2-$1'));
-    console.log(date);
-    return date;
+    return new Date(stringDate.replace(pattern, '$3-$2-$1'));
   };
 
   /**
    *  Load filter names from server and update their values by the page url.
    * */
   loadFilters = () => {
+    let promiseResolve, promiseReject;
+
     InternshipService.getFilterNames()
       .then(filterNames => {
 
@@ -85,16 +84,23 @@ class Internships extends Component {
         this.setState({
           filters: filters,
         });
+        promiseResolve("Filters loaded");
 
       })
       .catch(error => {
         alert(error);
+        promiseReject(error);
         return Promise.reject(error);
       });
+
+    return new Promise((resolve, reject) => {
+      promiseResolve = resolve;
+      promiseReject = reject;
+    });
   };
 
   loadInternships = () => {
-    InternshipService.getInternships()
+    InternshipService.getInternships(this.getSelectedFilters())
       .then(internships => {
         this.setState({
           internships: internships,
@@ -106,12 +112,48 @@ class Internships extends Component {
       });
   };
 
+  getSelectedFilters = () => {
+    const selectedFilters = {};
+    const filters = this.state.filters;
+    for (const filterCategory in filters) {
+      if (!Array.isArray(filters[filterCategory])) {
+        continue;
+      }
+      for (const filter of filters[filterCategory]) {
+        if (filter.checked) {
+          if (Object.prototype.hasOwnProperty.call(selectedFilters, filterCategory)) {
+            selectedFilters[filterCategory].push(filter.name);
+          } else {
+            selectedFilters[filterCategory] = [filter.name];
+          }
+        }
+      }
+    }
+
+    if (filters.earliestStartDate) {
+      selectedFilters.earliestStartDate = filters.earliestStartDate;
+    }
+    if (filters.latestEndDate) {
+      selectedFilters.latestEndDate = filters.latestEndDate;
+    }
+    return selectedFilters;
+  };
+
   goToInternshipPage = (internship) => {
     history.push("/internship/" + internship.id);
   };
 
+  onFilterChanged = (filterCategory, filterIndex, event) => {
+    const checked = event.target.type === "checkbox" ? event.target.checked : event.target.value;
+    const filters = this.state.filters;
+    filters[filterCategory][filterIndex].checked = checked;
+    this.setState({
+      filters: filters
+    });
+    this.loadInternships();
+  };
+
   onDateChanged = (datePickerName, date) => {
-    console.log(date);
     const filters = this.state.filters;
     // eslint-disable-next-line default-case
     switch (datePickerName) {
@@ -127,6 +169,8 @@ class Internships extends Component {
     this.setState({
       filters: filters,
     });
+
+    this.loadInternships();
   };
 
   render() {
@@ -141,10 +185,10 @@ class Internships extends Component {
           <ListGroup.Item>
             <div className={"h6"}> Industry</div>
             {
-              this.state.filters.industries.map(industry => {
+              this.state.filters.industries.map((industry, index) => {
                 return (
                   <div key={industry.name}>
-                    <input type="checkbox" defaultChecked={industry.checked} /> {industry.name}
+                    <input type="checkbox" checked={industry.checked} onChange={event => this.onFilterChanged("industries", index, event)}/> {industry.name}
                   </div>
                 );
               })
@@ -153,10 +197,10 @@ class Internships extends Component {
           <ListGroup.Item>
             <div className={"h6"}> Location</div>
             {
-              this.state.filters.locations.map(location => {
+              this.state.filters.locations.map((location, index) => {
                 return (
                   <div key={location.name}>
-                    <input type="checkbox" defaultChecked={location.checked} /> {location.name}
+                    <input type="checkbox" checked={location.checked} onChange={event => this.onFilterChanged("locations", index, event)} /> {location.name}
                   </div>
                 );
               })
