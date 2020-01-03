@@ -58,6 +58,15 @@ class Internships extends Component {
     return new Date(stringDate.replace(pattern, '$3-$2-$1'));
   };
 
+  updateFiltersUrl = () => {
+    const selectedFilters = this.getSelectedFilters();
+    const urlParams = queryString.stringify(selectedFilters, {arrayFormat: 'comma'});
+    const url = this.props.location.pathname + "?" + urlParams;
+
+
+    window.history.pushState(null, 'Title', url);
+  };
+
   /**
    *  Load filter names from server and update their values by the page url.
    * */
@@ -112,6 +121,11 @@ class Internships extends Component {
       });
   };
 
+  /**
+   *  @return a filter object with the selected filter names from state (by category)
+   *  Date objects used the format: dd.MM.yyy.
+   *  Example: filters: {"industries":["IT","Cleaning"],"locations":["Cluj-Napoca"],"earliestStartDate":"01.02.2020"}
+   * */
   getSelectedFilters = () => {
     const selectedFilters = {};
     const filters = this.state.filters;
@@ -130,11 +144,12 @@ class Internships extends Component {
       }
     }
 
+    const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
     if (filters.earliestStartDate) {
-      selectedFilters.earliestStartDate = filters.earliestStartDate;
+      selectedFilters.earliestStartDate = filters.earliestStartDate.toLocaleDateString("ro-RO", dateOptions);
     }
     if (filters.latestEndDate) {
-      selectedFilters.latestEndDate = filters.latestEndDate;
+      selectedFilters.latestEndDate = filters.latestEndDate.toLocaleDateString("ro-RO", dateOptions);
     }
     return selectedFilters;
   };
@@ -151,9 +166,10 @@ class Internships extends Component {
       filters: filters
     });
     this.loadInternships();
+    this.updateFiltersUrl();
   };
 
-  onDateChanged = (datePickerName, date) => {
+  onDateFilterChanged = (datePickerName, date) => {
     const filters = this.state.filters;
     // eslint-disable-next-line default-case
     switch (datePickerName) {
@@ -171,6 +187,7 @@ class Internships extends Component {
     });
 
     this.loadInternships();
+    this.updateFiltersUrl();
   };
 
   render() {
@@ -213,7 +230,7 @@ class Internships extends Component {
               value={this.state.filters.earliestStartDate}
               format={"dd.MM.yyy"}
               calendarIcon={null}
-              onChange={date => this.onDateChanged("startDate", date)}
+              onChange={date => this.onDateFilterChanged("startDate", date)}
             />
             <br/>
             <label>Latest end date:</label> <br/>
@@ -221,7 +238,7 @@ class Internships extends Component {
               value={this.state.filters.latestEndDate}
               format={"dd.MM.yyy"}
               calendarIcon={null}
-              onChange={date => this.onDateChanged("endDate", date)}
+              onChange={date => this.onDateFilterChanged("endDate", date)}
             />
           </ListGroup.Item>
         </ListGroup>
