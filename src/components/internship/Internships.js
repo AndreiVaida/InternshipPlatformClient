@@ -61,9 +61,11 @@ class Internships extends Component {
   updateFiltersUrl = () => {
     const selectedFilters = this.getSelectedFilters();
     const urlParams = queryString.stringify(selectedFilters, {arrayFormat: 'comma'});
-    const url = this.props.location.pathname + "?" + urlParams;
-
-
+    let url = this.props.location.pathname;
+    if (urlParams.length > 0) {
+      url += "?" + urlParams;
+    }
+    
     window.history.pushState(null, 'Title', url);
   };
 
