@@ -13,4 +13,14 @@ export class InternshipService {
     });
     // return axios.post(SERVER_URL + "/internship");
   }
+
+  static getFilterNames() {
+    return new Promise((resolve, reject) => {
+      resolve({
+        industries: ["IT", "Cleaning", "Photography"],
+        locations: ["Cluj-Napoca", "București"],
+      });
+    });
+    // return axios.post(SERVER_URL + "/internship/filterName");
+  }
 }
