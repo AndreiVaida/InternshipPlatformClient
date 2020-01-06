@@ -57,11 +57,6 @@ export default class AddInternship extends Component{
   onSubmit = (event) => {
     event.preventDefault();
 
-    if (!this.state.startDate || !this.state.endDate) {
-      alert("Pick the start date and the end date");
-      return;
-    }
-
     const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const startDate = this.state.startDate.toLocaleDateString("ro-RO", dateOptions);
     const endDate = this.state.endDate.toLocaleDateString("ro-RO", dateOptions);
@@ -95,18 +90,22 @@ export default class AddInternship extends Component{
           <Form.Group>
             <Form.Label> Start date </Form.Label> <br/>
             <DatePicker
+              name={"startDate"}
               value={this.state.startDate}
               format={"dd.MM.yyy"}
               calendarIcon={null}
+              required={true}
               onChange={date => this.onDateChanged("startDate", date)}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label> End date </Form.Label> <br/>
             <DatePicker
+              name={"endDate"}
               value={this.state.endDate}
               format={"dd.MM.yyy"}
               calendarIcon={null}
+              required={true}
               onChange={date => this.onDateChanged("endDate", date)}
             />
           </Form.Group>

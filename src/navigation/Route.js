@@ -6,6 +6,7 @@ import RegisterForm from "../components/userAccount/RegisterForm";
 import LoginForm from "../components/userAccount/LoginForm";
 import Internships from "../components/internship/Internships";
 import AddInternship from "../components/internship/AddInternship";
+import InternshipDetails from "../components/internship/InternshipDetails";
 
 export default function Routes() {
   return (
@@ -16,8 +17,8 @@ export default function Routes() {
       <Route path="/register" component={RegisterForm} />
       <Route path="/login" component={LoginForm} />
       <Route path="/internships" component={Internships} />
-      <Route path="/internship" component={AddInternship} />
-      {/*<Route path="/internship/:id" component={Internship} />*/}
+      <Route path="/internship" exact component={AddInternship} />
+      <Route path="/internship/:id" component={InternshipDetails} />
       <Route component={ReactHome} />
     </Switch>
   );
