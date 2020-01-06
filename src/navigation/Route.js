@@ -11,7 +11,7 @@ import InternshipDetails from "../components/internship/InternshipDetails";
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={LoginForm} />
+      <Route path="/" exact component={Internships} />
       <Route path="/home" component={ReactHome} />
       <Route path="/hello" component={Hello} />
       <Route path="/register" component={RegisterForm} />

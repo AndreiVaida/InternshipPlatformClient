@@ -21,13 +21,14 @@ export class InternshipService {
     };
 
     return axios.post(SERVER_URL + "/internship/filter", body)
-      .then(internships => {
-        for (let internship of internships.data) {
+      .then(response => {
+        const internships = response.data;
+        for (let internship of internships) {
           internship.location = internship.city;
           internship.startDate = InternshipService.globalDateToRomanianDate(internship.startDate);
           internship.endDate = InternshipService.globalDateToRomanianDate(internship.endDate);
         }
-        return internships.data
+        return internships;
       });
   }
 

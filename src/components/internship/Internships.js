@@ -105,7 +105,6 @@ class Internships extends Component {
       })
       .catch(error => {
         alert(error);
-        promiseReject(error);
         return Promise.reject(error);
       });
 
