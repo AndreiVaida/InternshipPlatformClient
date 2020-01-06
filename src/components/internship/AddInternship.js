@@ -62,7 +62,10 @@ export default class AddInternship extends Component{
       return;
     }
 
-    InternshipService.addInternship(this.user.id, this.state.name, this.state.industry, this.state.location, this.state.startDate, this.state.endDate, this.state.description)
+    const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const startDate = this.state.startDate.toLocaleDateString("ro-RO", dateOptions);
+    const endDate = this.state.endDate.toLocaleDateString("ro-RO", dateOptions);
+    InternshipService.addInternship(this.user.id, this.state.name, this.state.industry, this.state.location, startDate, endDate, this.state.description)
       .then(() => {
         history.push("/internships");
       })
