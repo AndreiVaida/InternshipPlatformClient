@@ -52,23 +52,7 @@ export class InternshipService {
   }
 
   static getInternship(internshipId) {
-    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-    const startDate = new Date("02.03.2020".replace(pattern, '$3-$2-$1'));
-    const endDate = new Date("03.04.2020".replace(pattern, '$3-$2-$1'));
-
-    return new Promise((resolve, reject) => { // TODO: DELETE THIS after integration
-      resolve({
-        id: 1,
-        name: "Java developer",
-        industry: "IT",
-        cities: "Cluj-Napoca",
-        startDate: startDate,
-        endDate: endDate,
-        description: "Foarte interesant",
-      });
-    });
-
-    // return axios.get(SERVER_URL + "/internship/" + internshipId);
+    return axios.get(SERVER_URL + "/internship?internshipId=" + internshipId);
   }
 
   static romanianDateToGlobalDate(romanianDate) {

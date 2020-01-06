@@ -54,6 +54,10 @@ class Internships extends Component {
     if (!stringDate) {
       return null;
     }
+    return this.stringToDate(stringDate);
+  };
+
+  stringToDate = (stringDate) => {
     const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
     return new Date(stringDate.replace(pattern, '$3-$2-$1'));
   };

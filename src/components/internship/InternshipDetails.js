@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 import { InternshipService } from "../../services/InternshipService";
-import history from "../../navigation/History";
 
 export default class InternshipDetails extends Component{
   constructor(props) {
@@ -22,13 +21,15 @@ export default class InternshipDetails extends Component{
 
   loadInternship = () => {
     InternshipService.getInternship(this.state.id)
-      .then(internship => {
+      .then(response => {
+        const internship = response.data;
+
         this.setState({
           name: internship.name,
           industry: internship.industry,
-          location: internship.location,
-          startDate: internship.startDate,
-          endDate: internship.endDate,
+          location: internship.city,
+          startDate: this.stringToDate(internship.startDate),
+          endDate: this.stringToDate(internship.endDate),
           description: internship.description,
         });
       })
@@ -38,6 +39,11 @@ export default class InternshipDetails extends Component{
       });
   };
 
+  stringToDate = (stringDate) => {
+    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+    return new Date(stringDate.replace(pattern, '$3-$2-$1'));
+  };
+
   render() {
     return (
       <div className={"container mt-5 smallWidth"}>
@@ -45,15 +51,15 @@ export default class InternshipDetails extends Component{
         <Form onSubmit={this.onSubmit}>
           <Form.Group>
             <Form.Label> Internship name </Form.Label>
-            <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"Internship name"} required="required" readOnly />
+            <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"No name"} readOnly />
           </Form.Group>
           <Form.Group>
             <Form.Label> Industry </Form.Label>
-            <Form.Control type={"text"} name={"industry"} value={this.state.industry} placeholder={"Industry"} required="required" readOnly />
+            <Form.Control type={"text"} name={"industry"} value={this.state.industry} placeholder={"Industry unknown"} readOnly />
           </Form.Group>
           <Form.Group>
             <Form.Label> Location </Form.Label>
-            <Form.Control type={"text"} name={"location"} value={this.state.location} placeholder={"Location"} required="required" readOnly />
+            <Form.Control type={"text"} name={"location"} value={this.state.location} placeholder={"Location unknown"} readOnly />
           </Form.Group>
           <Form.Group>
             <Form.Label> Start date </Form.Label> <br/>
@@ -75,7 +81,7 @@ export default class InternshipDetails extends Component{
           </Form.Group>
           <Form.Group>
             <Form.Label> Description </Form.Label>
-            <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"Description"} readOnly />
+            <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"No description"} readOnly />
           </Form.Group>
         </Form>
       </div>
