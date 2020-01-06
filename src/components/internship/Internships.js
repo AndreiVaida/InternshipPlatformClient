@@ -76,7 +76,8 @@ class Internships extends Component {
     let promiseResolve, promiseReject;
 
     InternshipService.getFilterNames()
-      .then(filterNames => {
+      .then(response => {
+        const filterNames = response.data;
 
         const filters = {
           industries: [],
@@ -129,7 +130,10 @@ class Internships extends Component {
    *  Example: filters: {"industries":["IT","Cleaning"],"locations":["Cluj-Napoca"],"earliestStartDate":"01.02.2020"}
    * */
   getSelectedFilters = () => {
-    const selectedFilters = {};
+    const selectedFilters = {
+      industries: [],
+      locations: [],
+    };
     const filters = this.state.filters;
     for (const filterCategory in filters) {
       if (!Array.isArray(filters[filterCategory])) {
