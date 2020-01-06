@@ -36,4 +36,13 @@ export class InternshipService {
     });
     // return axios.post(SERVER_URL + "/internship/filterName");
   }
+
+  static addInternship(id, name, industry, location, startDate, endDate, description) {
+    return new Promise((resolve, reject) => { // TODO: DELETE THIS after integration
+      resolve("MERGE");
+    });
+
+    // const body = {id, name, industry, location, startDate, endDate, description};
+    // return axios.post(SERVER_URL + "/internship", body);
+  }
 }

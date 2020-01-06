@@ -5,6 +5,7 @@ import Hello from "../components/demo/Hello";
 import RegisterForm from "../components/userAccount/RegisterForm";
 import LoginForm from "../components/userAccount/LoginForm";
 import Internships from "../components/internship/Internships";
+import AddInternship from "../components/internship/AddInternship";
 
 export default function Routes() {
   return (
@@ -15,6 +16,7 @@ export default function Routes() {
       <Route path="/register" component={RegisterForm} />
       <Route path="/login" component={LoginForm} />
       <Route path="/internships" component={Internships} />
+      <Route path="/internship" component={AddInternship} />
       {/*<Route path="/internship/:id" component={Internship} />*/}
       <Route component={ReactHome} />
     </Switch>

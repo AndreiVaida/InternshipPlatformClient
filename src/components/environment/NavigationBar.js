@@ -40,7 +40,7 @@ class NavigationBar extends Component {
           <Nav className="mr-auto"> {
             this.state.isAuthenticated && this.state.user.userType === UserType.COMPANY &&
               <Nav>
-                <Nav.Link href="/addInternship" className={"darkenHover_80"}> Add internship </Nav.Link>
+                <Nav.Link href="/internship" className={"darkenHover_80"}> Add internship </Nav.Link>
               </Nav>
           }
           </Nav>

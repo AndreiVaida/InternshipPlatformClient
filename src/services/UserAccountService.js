@@ -23,6 +23,9 @@ export class UserAccountService {
     EventEmitter.dispatch(EventType.UserAccountChanged);
   }
 
+  /**
+   * @returns User{id, email, name, userType}
+   */
   static getLoggedUser() {
     return JSON.parse(localStorage.getItem(USER));
   }
