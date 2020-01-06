@@ -111,7 +111,7 @@ export default class AddInternship extends Component{
           </Form.Group>
           <Form.Group>
             <Form.Label> Description </Form.Label>
-            <Form.Control type={"text"} name={"description"} value={this.state.description} placeholder={"Description"} onChange={this.handleInputChange} />
+            <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"Description"} onChange={this.handleInputChange} />
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Add the internship </Button></div>
         </Form>

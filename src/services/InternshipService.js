@@ -38,12 +38,19 @@ export class InternshipService {
   }
 
   static addInternship(userId, name, industry, location, startDate, endDate, description) {
-    return new Promise((resolve, reject) => { // TODO: DELETE THIS after integration
-      resolve("MERGE");
-    });
+    const startDateFormatted = InternshipService.romanianDateToGlobalDate(startDate);
+    const endDateFormatted = InternshipService.romanianDateToGlobalDate(startDate);
 
-    // const body = {id, name, industry, location, startDate, endDate, description};
-    // return axios.post(SERVER_URL + "/internship", body);
+    const body = {
+      userId: userId,
+      name: name,
+      industry: industry,
+      city: location,
+      startDate: startDateFormatted,
+      endDate: endDateFormatted,
+      description: description
+    };
+    return axios.post(SERVER_URL + "/internship", body);
   }
 
   static getInternship(internshipId) {
@@ -64,5 +71,15 @@ export class InternshipService {
     });
 
     // return axios.get(SERVER_URL + "/internship/" + internshipId);
+  }
+
+  static romanianDateToGlobalDate(romanianDate) {
+    const array = romanianDate.split(".");
+    return array[2] + "-" + array[1] + "-" + array[0];
+  }
+
+  static globalDateToRomanianDate(globalDate) {
+    const array = globalDate.split("-");
+    return array[2] + "." + array[1] + "." + array[0];
   }
 }

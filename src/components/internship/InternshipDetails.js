@@ -75,7 +75,7 @@ export default class InternshipDetails extends Component{
           </Form.Group>
           <Form.Group>
             <Form.Label> Description </Form.Label>
-            <Form.Control type={"text"} name={"description"} value={this.state.description} placeholder={"Description"} readOnly />
+            <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"Description"} readOnly />
           </Form.Group>
         </Form>
       </div>
