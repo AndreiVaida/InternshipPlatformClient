@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 import { InternshipService } from "../../services/InternshipService";
+import FadeIn from "react-fade-in";
 
 export default class InternshipDetails extends Component{
   constructor(props) {
@@ -49,6 +50,7 @@ export default class InternshipDetails extends Component{
       <div className={"container mt-5 smallWidth"}>
         <p className={"display-4 mb-5 text-center"}> Internship details </p>
         <Form onSubmit={this.onSubmit}>
+          <FadeIn delay={25}>
           <Form.Group>
             <Form.Label> Internship name </Form.Label>
             <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"No name"} readOnly />
@@ -83,6 +85,7 @@ export default class InternshipDetails extends Component{
             <Form.Label> Description </Form.Label>
             <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"No description"} readOnly />
           </Form.Group>
+          </FadeIn>
         </Form>
       </div>
     );

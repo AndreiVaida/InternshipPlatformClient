@@ -4,6 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import history from "../../navigation/History";
 import DatePicker from 'react-date-picker';
 import "./Internship.css"
+import FadeIn from 'react-fade-in';
 
 const queryString = require('query-string');
 
@@ -25,7 +26,7 @@ class Internships extends Component {
   componentDidMount() {
     this.loadUrlFilters();
     this.loadFilters()
-      .finally(() => this.loadInternships());
+      .finally(() => setTimeout(this.loadInternships, 10));
   }
 
   loadUrlFilters = () => {
@@ -257,6 +258,7 @@ class Internships extends Component {
             <div className={"text-center"}>No internships available</div>
             :
             <ListGroup>
+              <FadeIn>
               {
                 this.state.internships.map(internship => {
                   return (
@@ -271,6 +273,7 @@ class Internships extends Component {
                   );
                 })
               }
+              </FadeIn>
             </ListGroup>
         }
       </div>

@@ -24,7 +24,7 @@ class Hello extends Component {
     return (
       <div className="App">
         <h1>
-          Hello world !
+          Welcome!
         </h1>
         <Button onClick={this.sayHello}> Say hello </Button>
         <div className={"display-4 mt-5"}> {this.state.hello} </div>

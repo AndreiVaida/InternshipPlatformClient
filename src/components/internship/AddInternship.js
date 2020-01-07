@@ -5,6 +5,7 @@ import { UserAccountService } from "../../services/UserAccountService";
 import history from "../../navigation/History";
 import { InternshipService } from "../../services/InternshipService";
 import { UserType } from "../../domain/UserType";
+import FadeIn from "react-fade-in";
 
 export default class AddInternship extends Component{
   constructor(props) {
@@ -75,6 +76,7 @@ export default class AddInternship extends Component{
       <div className={"container mt-5 smallWidth"}>
         <p className={"display-4 mb-5 text-center"}> Add an internship </p>
         <Form onSubmit={this.onSubmit}>
+          <FadeIn>
           <Form.Group>
             <Form.Label> Internship name </Form.Label>
             <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"Internship name"} required="required" onChange={this.handleInputChange} />
@@ -114,6 +116,7 @@ export default class AddInternship extends Component{
             <Form.Control type={"text"} as="textarea" name={"description"} value={this.state.description} placeholder={"Description"} onChange={this.handleInputChange} />
           </Form.Group>
           <div className={"text-center"}><Button type={"submit"}> Add the internship </Button></div>
+          </FadeIn>
         </Form>
       </div>
     );

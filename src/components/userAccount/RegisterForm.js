@@ -9,6 +9,7 @@ import Tab from "react-bootstrap/Tab";
 import { EducationDegree } from "../../domain/EducationDegree";
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
+import FadeIn from 'react-fade-in';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class RegisterForm extends Component {
           {/* Student */}
           <Tab eventKey="STUDENT" title="Student">
             <Form onSubmit={(event) => this.onSubmit(event, UserType.STUDENT)}>
+              <FadeIn>
               <Form.Group>
                 <Form.Label> E-mail </Form.Label>
                 <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"write your e-mail"} required="required" onChange={this.handleInputChange}/>
@@ -147,11 +149,13 @@ class RegisterForm extends Component {
                 <img src={"baseline_add_circle_outline_black_48dp.png"} alt={"Add"} onClick={this.addEducationItem} className={"clickable greyHover"}/>
               </Form.Group>
               <div className={"text-center"}><Button type={"submit"}> Create your account </Button></div>
+              </FadeIn>
             </Form>
           </Tab>
           {/* Company */}
           <Tab eventKey="COMPANY" title="Company">
             <Form onSubmit={(event) => this.onSubmit(event, UserType.COMPANY)}>
+              <FadeIn>
               <Form.Group>
                 <Form.Label> E-mail </Form.Label>
                 <Form.Control type={"email"} name={"email"} value={this.state.email} placeholder={"write company e-mail"} required="required" onChange={this.handleInputChange}/>
@@ -165,13 +169,16 @@ class RegisterForm extends Component {
                 <Form.Control type={"text"} name={"name"} value={this.state.name} placeholder={"enter company name"} required="required" onChange={this.handleInputChange}/>
               </Form.Group>
               <div className={"text-center"}><Button type={"submit"}> Create company account </Button></div>
+              </FadeIn>
             </Form>
           </Tab>
         </Tabs>
 
+        <FadeIn delay={500}>
         <div className={"text-center mt-3"}>
           <a href={"/login"}> Already have an account? Login here! </a>
         </div>
+        </FadeIn>
       </div>
     );
   }
