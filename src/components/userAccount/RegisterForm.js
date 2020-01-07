@@ -81,6 +81,7 @@ class RegisterForm extends Component {
             alert("Select the education degree for '" + education.institutionName + "' (" + education.specialization + ")");
             return;
           }
+          education.degree = education.degree.value;
         }
         break;
       }
